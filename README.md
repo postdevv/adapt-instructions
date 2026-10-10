@@ -1,508 +1,297 @@
-========================================================
- ADAPT - USER GUIDE
-========================================================
+---
+title: Adapt - User Guide
+layout: default
+---
 
-+------------------------------------------------------+
-| NOTE: Make sure to follow all steps and do not skip  |
-| any steps. Every step in this guide is strictly      |
-| mandatory for a clean unban.                        |
-+------------------------------------------------------+
+# Adapt - User Guide
 
---------------------------------------------------------
- SUPPORTED GAMES & STATUS
---------------------------------------------------------
- Game Title                   Anti-Cheat           Status
---------------------------------------------------------
- Fortnite                     BE + EasyAntiCheat   UNDETECTED
- Apex Legends                 EasyAntiCheat        UNDETECTED
- Rust                         EAC (Cerberus)       UNDETECTED
- Rainbow Six Siege            BattlEye             UNDETECTED
- Call of Duty (WZ / BO6)      Ricochet             UNDETECTED
- FiveM                        FiveM AC / servers   SERVER DEPENDENT
- Valorant                     Riot Vanguard        WORK IN PROGRESS
---------------------------------------------------------
+> **NOTE:** Follow every step in order. Do not skip steps — every step is mandatory for a clean unban.
 
+## Contents
 
-========================================================
- SPOOFER SETUP [DO THIS BEFORE SPOOF]
- Windows Reinstall (Mandatory)
-========================================================
+- [Supported Games & Status](#supported-games--status)
+- [1. Windows Reinstall (Mandatory)](#1-windows-reinstall-mandatory)
+- [2. BIOS Configuration (Mandatory)](#2-bios-configuration-mandatory)
+- [3. TPM & Security Architecture](#3-tpm--security-architecture)
+- [4. Disable Windows Defender (Mandatory)](#4-disable-windows-defender-mandatory)
+- [5. Launch Adapt (Mandatory)](#5-launch-adapt-mandatory)
+- [6. Run the Spoof (Mandatory)](#6-run-the-spoof-mandatory)
+- [7. Reset Your Network (Mandatory)](#7-reset-your-network-mandatory)
+- [8. Make a New Account (Mandatory)](#8-make-a-new-account-mandatory)
+- [9. VPN](#9-vpn)
+- [10. Clear Game Cache (Mandatory)](#10-clear-game-cache-mandatory)
+- [11. Verify Your New Serials (Mandatory)](#11-verify-your-new-serials-mandatory)
+- [12. Fortnite Tournaments](#12-fortnite-tournaments)
 
-A fresh Windows re-installation with a clean drive format is
-mandatory to ensure 100% unban success. Modern anti-cheats
-(EasyAntiCheat, BattlEye, Vanguard, Ricochet) embed permanent
-telemetry traces, registry identifiers and volume tracker
-markers across your system drive.
+## Supported Games & Status
 
-+------------------------------------------------------+
-| MANDATORY REQUIREMENT: Do NOT use Windows "Reset This |
-| PC" (built-in reset leaves tracking logs behind). You |
-| must perform a clean reinstall using an official USB  |
-| Flash Drive (8 GB+).                                  |
-+------------------------------------------------------+
+| Game Title | Anti-Cheat | Status |
+|---|---|---|
+| Fortnite | BE + EasyAntiCheat | UNDETECTED |
+| Apex Legends | EasyAntiCheat | UNDETECTED |
+| Rust | EAC (Cerberus) | UNDETECTED |
+| Rainbow Six Siege | BattlEye | UNDETECTED |
+| Call of Duty (WZ / BO6) | Ricochet | UNDETECTED |
+| FiveM | FiveM AC / servers | SERVER DEPENDENT |
+| Valorant | Riot Vanguard | WORK IN PROGRESS |
 
-STEP-BY-STEP QUICK REINSTALL GUIDE
+---
 
- 1. CREATE BOOTABLE WINDOWS USB
-    Prepare an empty USB flash drive (minimum 8 GB):
-    - Download the official Microsoft Media Creation Tool
-      (Windows 10 or Windows 11).
-    - Run the tool, select "Create installation media
-      (USB flash drive)".
-    - Select your USB drive and wait for the process to
-      complete (5-10 minutes).
+## 1. Windows Reinstall (Mandatory)
 
- 2. BOOT FROM USB & FORMAT DRIVE
+A fresh Windows re-installation with a clean drive format is mandatory. Modern anti-cheats (EasyAntiCheat, BattlEye, Vanguard, Ricochet) embed permanent telemetry traces, registry identifiers and volume tracker markers across your system drive.
 
-    Reboot your PC and tap your motherboard's boot menu
-    key immediately:
+> **MANDATORY:** Do **NOT** use Windows "Reset This PC" — the built-in reset leaves tracking logs behind. You must do a clean reinstall from an official USB flash drive (8 GB+).
 
-      Motherboard      Boot Menu Key
-      ---------------- -------------
-      ASUS             F8
-      MSI / ASRock     F11
-      Gigabyte         F12
+### 1.1 Create a bootable Windows USB
 
-    - Select your USB drive (prefixed with UEFI:).
-    - Click Install Now > Select Custom: Install Windows
-      only (advanced).
-    - Select each partition of your primary Windows drive
-      (Drive 0) and click Delete until only Unallocated
-      Space remains.
-    - Select the Unallocated Space and click Next.
-      Windows will install fresh.
+1. Prepare an empty USB flash drive (minimum 8 GB).
+2. Download the official Microsoft Media Creation Tool (Windows 10 or Windows 11).
+3. Run the tool and select **Create installation media (USB flash drive)**.
+4. Select your USB drive and wait for it to finish (5–10 minutes).
 
- 3. POST-INSTALLATION RULES
-    +--------------------------------------------------+
-    | DO NOT INSTALL OR OPEN GAMES YET: Complete the    |
-    | initial Windows setup. Do not link any old banned |
-    | Microsoft/Epic/Riot accounts. Proceed directly to |
-    | the next steps (BIOS Configurations & Spoofing)   |
-    | first.                                            |
-    +--------------------------------------------------+
+### 1.2 Boot from USB and format the drive
 
+Reboot your PC and tap your motherboard's boot menu key immediately:
 
-========================================================
- SPOOFER SETUP [DO THIS BEFORE SPOOF]
- BIOS Configurations (Secure Boot & TPM)
-========================================================
+| Motherboard | Boot Menu Key |
+|---|---|
+| ASUS | F8 |
+| MSI / ASRock | F11 |
+| Gigabyte | F12 |
 
-Before spoofing, you must configure your motherboard BIOS
-to permit kernel driver communication and prevent
-anti-cheats from reading banned hardware certificates.
+1. Select your USB drive (prefixed with **UEFI:**).
+2. Click **Install Now** → **Custom: Install Windows only (advanced)**.
+3. Select each partition of your primary Windows drive (Drive 0) and click **Delete** until only **Unallocated Space** remains.
+4. Select the Unallocated Space and click **Next**. Windows will install fresh.
 
- 1. DISABLE SECURE BOOT (MANDATORY)
+> **POST-INSTALL RULE:** Do **NOT** install or open games yet. Complete the initial Windows setup, do not link any old banned Microsoft/Epic/Riot accounts, and continue to the next steps first.
 
-Adapt requires direct low-level kernel access to rewrite
-your SMBIOS tables and serials. If Secure Boot is on, the
-Windows kernel blocks all unsigned hardware flasher drivers.
+---
 
-  1.1 ENTER MOTHERBOARD BIOS
-      Restart your PC and repeatedly tap DEL or F2 as soon
-      as the screen turns on. Press F7 if needed to enter
-      Advanced Mode.
+## 2. BIOS Configuration (Mandatory)
 
-  1.2 DISABLE SECURE BOOT
-      - ASUS: Boot > Secure Boot > Change OS Type from
-        Windows UEFI to Other OS (or Key Management >
-        Clear Secure Boot Keys).
-      - MSI: Settings > Advanced > Windows OS
-        Configuration > Secure Boot > Disabled.
-      - Gigabyte / AORUS: BIOS tab > Secure Boot > Disabled.
-      - ASRock: Security > Secure Boot > Disabled.
+Before spoofing, configure your motherboard BIOS to permit kernel driver communication and prevent anti-cheats from reading banned hardware certificates.
 
- 2. DISABLE TPM / fTPM (IF TPM BANNED)
+### 2.1 Disable Secure Boot (Mandatory)
 
-    +--------------------------------------------------+
-    | TPM BAN NOTICE: If you are hardware banned on TPM  |
-    | (e.g. Valorant / Vanguard VAN 152 / VAN 1067) and |
-    | you are NOT using the TPM Clean feature, you must |
-    | disable TPM so anti-cheats cannot read your banned |
-    | endorsement key!                                  |
-    +--------------------------------------------------+
+Adapt needs direct kernel access to rewrite your SMBIOS tables and serials. With Secure Boot on, Windows blocks these drivers.
 
-    AMD motherboards (AMD fTPM):
-    Navigate to Advanced > CPU Configuration or AMD fTPM
-    Configuration > Set AMD fTPM switch (or TPM Device
-    Selection) to Disabled.
+Restart your PC and repeatedly tap **DEL** or **F2** as soon as the screen turns on. Press **F7** if needed to enter Advanced Mode.
 
-    Intel motherboards (Intel PTT):
-    Navigate to Advanced / Security > PCH-FW Configuration
-    or Trusted Computing > Set Intel PTT (Platform Trust
-    Technology) to Disabled.
+| Brand | Where to disable Secure Boot |
+|---|---|
+| ASUS | Boot → Secure Boot → OS Type = **Other OS** (or Key Management → Clear Secure Boot Keys) |
+| MSI | Settings → Advanced → Windows OS Configuration → Secure Boot → **Disabled** |
+| Gigabyte / AORUS | BIOS tab → Secure Boot → **Disabled** |
+| ASRock | Security → Secure Boot → **Disabled** |
 
- 3. DISABLE FAST STARTUP
+### 2.2 Disable TPM / fTPM (only if TPM banned)
 
-Fast Startup causes Windows to save a hibernation file of
-old SMBIOS hardware tables instead of polling newly
-spoofed tables on reboot.
+> **TPM ban notice:** If you are hardware banned on TPM (e.g. Valorant / Vanguard VAN 152 / VAN 1067) and you are **not** using the TPM Clean feature, you must disable TPM so anti-cheats cannot read your banned endorsement key.
 
-  3.1 OPEN POWER OPTIONS
-      Press Win + R, type powercfg.cpl and press Enter.
-  3.2 CHANGE SETTINGS
-      Click "Choose what the power buttons do" on the left
-      sidebar.
-  3.3 UNCHECK FAST STARTUP
-      Click "Change settings that are currently unavailable",
-      then uncheck "Turn on fast startup (recommended)" and
-      click Save changes.
+**AMD motherboards (AMD fTPM):**
+Advanced → CPU Configuration or AMD fTPM Configuration → set **AMD fTPM switch** (or TPM Device Selection) to **Disabled**.
 
+**Intel motherboards (Intel PTT):**
+Advanced / Security → PCH-FW Configuration or Trusted Computing → set **Intel PTT** (Platform Trust Technology) to **Disabled**.
 
-========================================================
- TPM & SECURITY ARCHITECTURE
- TPM 2.0 & Bypass Reality
-========================================================
+### 2.3 Disable Fast Startup
 
-A comprehensive technical breakdown of how Trusted Platform
-Modules (TPM 2.0) work, how anti-cheats (like Riot Vanguard)
-enforce hardware attestation, and the technical reality
-behind software "TPM Spoofers".
+Fast Startup makes Windows reload a hibernation file of old SMBIOS tables instead of polling the newly spoofed ones.
 
-+------------------------------------------------------+
-| CORE CONCEPT: A TPM is a cryptographic security        |
-| processor (integrated into your CPU as fTPM / Intel    |
-| PTT, or a standalone dTPM module). It contains an      |
-| immutable, factory-burned Endorsement Key (EK) that    |
-| cannot be permanently rewritten by any software or     |
-| BIOS flasher.                                          |
-+------------------------------------------------------+
+1. Press **Win + R**, type `powercfg.cpl` and press Enter.
+2. Click **Choose what the power buttons do** on the left.
+3. Click **Change settings that are currently unavailable**, uncheck **Turn on fast startup (recommended)** and click **Save changes**.
 
-HOW ANTI-CHEATS USE TPM (HARDWARE ATTESTATION)
-Modern anti-cheats (especially Riot Vanguard on Windows 11)
-don't just read serial numbers; they use TPM 2.0 for
-cryptographic Remote Attestation:
+---
 
- 1. THE ENDORSEMENT KEY (EK) ROOT OF TRUST
-    Every TPM chip has a unique Endorsement Key pair burned
-    at the factory. The public key is signed by a
-    certificate issued directly by the manufacturer (AMD,
-    Intel, Infineon, Nuvoton). The private key never leaves
-    the cryptographic silicon.
+## 3. TPM & Security Architecture
 
- 2. HARDWARE BINDING BANS
-    When an anti-cheat flags or bans your machine, it binds
-    the penalty cryptographically to your TPM's Endorsement
-    Key certificate. The anti-cheat sends a cryptographic
-    nonce (challenge) that only your genuine TPM private key
-    can sign.
+*Technical background — how TPM 2.0 bans work and what actually fixes them.*
 
- 3. WINDOWS 10 VS WINDOWS 11 ENFORCEMENT
-    - Windows 11: Mandates TPM 2.0 and Secure Boot at the
-      OS level. Vanguard immediately blocks launch with
-      error VAN 1067 or VAN 9003 if TPM is disabled.
-    - Windows 10: Vanguard does not strictly require TPM 2.0
-      at the kernel level on Windows 10! Disabling
-      fTPM/PTT in BIOS is a completely viable workaround to
-      play without a TPM ban on Windows 10.
+> **CORE CONCEPT:** A TPM is a cryptographic security processor (built into your CPU as fTPM / Intel PTT, or a standalone dTPM module). It holds an immutable, factory-burned Endorsement Key (EK) that no software or BIOS flasher can permanently rewrite.
 
-THE TRUTH ABOUT SOFTWARE "TPM SPOOFERS"
-Almost all software tools marketed as "TPM Spoofers" fall
-into two technical categories:
+### How anti-cheats use TPM (hardware attestation)
 
- CATEGORY 1: FAKE "TPM SPOOFERS" (Registry / WMI / Clear-Tpm)
- - They edit cosmetic registry keys (e.g. HKLM:\SOFTWARE\
-   Microsoft\Tpm\TpmInstanceId) or flush cached NGC
-   credentials (AppData\Local\Microsoft\NGC).
- - They intercept basic user-mode WMI queries or modify
-   SMBIOS tables in memory.
- - They automate a simple Clear-Tpm command in PowerShell
-   or run a BIOS NVRAM wipe.
- Why they fail: the moment a kernel-level anti-cheat driver
- directly queries the official Windows TPM driver (tpm.sys)
- or issues a hardware challenge, these superficial
- modifications are bypassed and your original hardware
- Endorsement Key is retrieved.
+Modern anti-cheats (especially Riot Vanguard on Windows 11) don't just read serial numbers — they use TPM 2.0 for cryptographic remote attestation:
 
- CATEGORY 2: DRIVER-BASED SPOOFERS (Ring 0 / Hypervisor)
- - Memory Interception: they load an unsigned driver in
-   kernel mode (Ring 0) to hook IRP dispatch routines of
-   tpm.sys and alter responses on the fly.
- - BYOVD Loading: because Windows blocks unsigned kernel
-   drivers, they exploit known vulnerabilities in legitimate
-   signed drivers (Bring Your Own Vulnerable Driver) to
-   inject their hook into kernel memory.
- - Volatile & Temporary: these hooks only exist in volatile
-   RAM. Upon restarting your computer, all changes disappear
-   because the physical silicon was never altered.
+1. **The Endorsement Key (EK) root of trust** — every TPM chip has a unique Endorsement Key pair burned at the factory. The public key is signed by a certificate from the manufacturer (AMD, Intel, Infineon, Nuvoton). The private key never leaves the silicon.
+2. **Hardware binding bans** — when an anti-cheat bans your machine, it binds the penalty cryptographically to your TPM's Endorsement Key certificate. The anti-cheat can send a challenge that only your genuine TPM private key can sign.
+3. **Windows 10 vs Windows 11 enforcement:**
+   - **Windows 11** mandates TPM 2.0 and Secure Boot. Vanguard blocks launch with VAN 1067 or VAN 9003 if TPM is disabled.
+   - **Windows 10** does not strictly require TPM 2.0 at the kernel level. Disabling fTPM/PTT in BIOS is a viable workaround on Windows 10.
 
-+------------------------------------------------------+
-| SUMMARY: Purely software-based "permanent TPM spoofing" |
-| without changing your processor or installing an        |
-| external hardware crypto-module does not exist. It is   |
-| either surface-level registry cosmetics or temporary    |
-| RAM interception.                                       |
-+------------------------------------------------------+
+### The truth about software "TPM spoofers"
 
-PERMANENT & VERIFIED SOLUTIONS FOR TPM BANS
+Almost all tools marketed as "TPM spoofers" are one of two things:
 
- METHOD A: WINDOWS 10 + DISABLE fTPM IN BIOS
-   (Free & 100% working)
-   - AMD: BIOS > Advanced > AMD fTPM Configuration > AMD
-     fTPM switch = Disabled.
-   - Intel: BIOS > Advanced / Security > PCH-FW
-     Configuration > Intel PTT = Disabled.
-   - Install Windows 10 (21H2 or 22H2). Vanguard will
-     launch cleanly without requesting TPM attestation.
+**Category 1 — Fake spoofers (registry / WMI / Clear-Tpm):**
+- Edit cosmetic registry keys (e.g. `HKLM:\SOFTWARE\Microsoft\Tpm\TpmInstanceId`) or flush cached NGC credentials (`AppData\Local\Microsoft\NGC`).
+- Intercept basic user-mode WMI queries or tweak SMBIOS tables in memory.
+- Automate a simple `Clear-Tpm` command or a BIOS NVRAM wipe.
+- **Why they fail:** the moment a kernel-level anti-cheat queries the official Windows TPM driver (`tpm.sys`) or issues a hardware challenge, these changes are bypassed and your original Endorsement Key is retrieved.
 
- METHOD B: DISCRETE TPM 2.0 MODULE (~12-15 EUR)
-   (Ultimate permanent hardware fix for Windows 11)
-   - Most desktop motherboards (ASUS, MSI, Gigabyte, ASRock)
-     feature an onboard TPM Header (12-pin, 14-pin or
-     20-pin).
-   - Buy a dedicated TPM 2.0 module matching your
-     motherboard (Amazon / AliExpress).
-   - Plug the physical module into your motherboard's TPM
-     header.
-   - BIOS > Trusted Computing > switch TPM Device Selection
-     from Firmware TPM (fTPM) to Discrete TPM (dTPM).
-   - Result: Windows and anti-cheats communicate with the
-     new external crypto-chip, which has a brand new,
-     legitimate, factory-certified Endorsement Key. Your
-     banned CPU fTPM is bypassed forever while keeping full
-     Windows 11 compatibility!
+**Category 2 — Driver-based spoofers (Ring 0 / hypervisor):**
+- Load an unsigned driver in kernel mode to hook `tpm.sys` routines and alter responses on the fly.
+- Because Windows blocks unsigned drivers, they exploit vulnerabilities in legitimate signed drivers (Bring Your Own Vulnerable Driver) to inject the hook.
+- **Volatile & temporary:** these hooks only live in RAM. After a restart, everything is gone — the physical silicon was never altered.
 
- METHOD C: CLEAN TPM PROVISIONING & NVRAM RESET
-   (For corrupted attestation certificates / cached tokens)
-   - Open PowerShell as Administrator, run: Clear-Tpm
-   - In BIOS, select Reset / Clear fTPM NVRAM.
-   - Run Adapt (Adapt.bat as Administrator) to flush
-     registry identifiers, hardware serials and NGC token
-     caches (use the TPM Clean action).
+> **SUMMARY:** Purely software-based "permanent TPM spoofing" without changing your processor or installing an external hardware crypto module does not exist. It is either surface-level registry cosmetics or temporary RAM interception.
 
-DIAGNOSTIC & VERIFICATION COMMANDS
+### Permanent & verified solutions for TPM bans
 
- 1. Check TPM status (PowerShell Admin):
-       Get-Tpm
-    Displays TPM Presence, Ready State (TpmReady: True)
-    and Manufacturer ID.
+**Method A — Windows 10 + disable fTPM in BIOS (free, works 100%)**
+- AMD: BIOS → Advanced → AMD fTPM Configuration → AMD fTPM switch = **Disabled**
+- Intel: BIOS → Advanced / Security → PCH-FW Configuration → Intel PTT = **Disabled**
+- Install Windows 10 (21H2 or 22H2). Vanguard launches cleanly without TPM attestation.
 
- 2. Check TPM via console: Win + R > tpm.msc
-    Verify "The TPM is ready for use" and note the
-    Specification Version (2.0).
+**Method B — Discrete TPM 2.0 module (~12–15 EUR, permanent fix for Windows 11)**
+- Most desktop motherboards (ASUS, MSI, Gigabyte, ASRock) have an onboard TPM header (12-pin, 14-pin or 20-pin).
+- Buy a dedicated TPM 2.0 module matching your board (Amazon / AliExpress).
+- Plug it into the motherboard's TPM header.
+- BIOS → Trusted Computing → switch TPM Device Selection from **Firmware TPM (fTPM)** to **Discrete TPM (dTPM)**.
+- Windows and anti-cheats then talk to the new crypto chip, which has a brand-new legitimate factory-certified Endorsement Key. Full Windows 11 compatibility kept.
 
- 3. Inspect Endorsement Key (PowerShell Admin):
-       Get-TpmEndorsementKeyInfo
+**Method C — Clean TPM provisioning & NVRAM reset (for corrupted attestation / cached tokens)**
+1. Open PowerShell as Administrator and run: `Clear-Tpm`
+2. In BIOS, select **Reset / Clear fTPM NVRAM**.
+3. Run Adapt (Adapt.bat as Administrator) and use **TPM Clean** to flush registry identifiers, hardware serials and NGC token caches.
 
+### Diagnostic & verification commands
 
-========================================================
- SPOOFER DOWNLOAD
- Disable Windows Defender
-========================================================
+Run in PowerShell as Administrator:
 
-You must temporarily disable Windows Defender Real-Time
-Protection before downloading or running Adapt.
+| Command | What it shows |
+|---|---|
+| `Get-Tpm` | TPM presence, ready state (`TpmReady: True`), manufacturer ID |
+| `tpm.msc` (Win + R) | "The TPM is ready for use" + specification version (2.0) |
+| `Get-TpmEndorsementKeyInfo` | Endorsement Key details |
 
-+------------------------------------------------------+
-| MANDATORY STEP: Anti-cheats and Windows Defender flag  |
-| kernel motherboard flasher drivers (AMI flasher /      |
-| kernel memory injectors) as false-positives and block  |
-| them from running.                                     |
-+------------------------------------------------------+
+---
 
-HOW TO DISABLE REAL-TIME PROTECTION:
- 1. Open Windows Security from the Start menu.
- 2. Click Virus & threat protection > Manage settings.
- 3. Toggle Real-time protection to OFF.
+## 4. Disable Windows Defender (Mandatory)
 
+You must temporarily disable Windows Defender Real-Time Protection before running Adapt.
 
-========================================================
- SPOOFER DOWNLOAD
- ADAPT LOADER
-========================================================
+> **MANDATORY:** Anti-cheats and Windows Defender flag kernel motherboard flasher drivers (AMI flasher / kernel memory injectors) as false positives and block them.
+
+1. Open **Windows Security** from the Start menu.
+2. Click **Virus & threat protection** → **Manage settings**.
+3. Toggle **Real-time protection** to **OFF**.
+
+---
+
+## 5. Launch Adapt (Mandatory)
 
 Extract the Adapt package anywhere (e.g. your Desktop).
 
-+------------------------------------------------------+
-| SINGLE FOLDER PACKAGE: The package contains adapt.py,  |
-| Adapt.bat, Adapt GUI.bat and the bin\ folder with the  |
-| AMI flasher tool and signed drivers. Everything is     |
-| included - no extra downloads required.                |
-+------------------------------------------------------+
+> The package contains `adapt.py`, `Adapt.bat`, `Adapt GUI.bat` and the `bin\` folder with the AMI flasher tool and signed drivers. Everything is included — no extra downloads required.
 
-HOW TO LAUNCH:
- 1. MOVE TO DESKTOP
-    Place the Adapt folder directly on your Windows
-    Desktop.
- 2. RUN AS ADMINISTRATOR
-    Double-click Adapt.bat (runs the full spoof directly)
-    or Adapt GUI.bat (opens the modern GUI). Both request
-    administrator rights automatically - click Yes on the
-    UAC prompt.
- 3. NO LOGIN REQUIRED
-    Adapt has no license key and no account system. It
-    starts working immediately.
+1. **Move to Desktop** — place the Adapt folder directly on your Windows Desktop.
+2. **Run as Administrator** — double-click `Adapt.bat` (runs the full spoof directly) or `Adapt GUI.bat` (opens the GUI). Both request admin rights automatically — click **Yes** on the UAC prompt.
+3. **No login required** — Adapt has no license key and no account system. It starts working immediately.
 
+---
 
-========================================================
- EAC / BE (FORTNITE, APEX, RUST, ETC)
- Spoofing
-========================================================
+## 6. Run the Spoof (Mandatory)
 
-Once Adapt is running you will see your current system
-specifications and the spoofer actions.
+Once Adapt is running you will see your current system specifications and the spoofer actions.
 
-SELECT YOUR SPOOF MODE:
+### Select your spoof mode
 
- +-------------------+-----------------------------------+
- | FULL SPOOF        | Recommended for 95% of            |
- | (Standard AMI)    | motherboards: ASUS, Gigabyte,     |
- |                   | MSI, ASRock. Flashes all SMBIOS   |
- |                   | tables permanently. Board brand   |
- |                   | is detected automatically (AUTO). |
- +-------------------+-----------------------------------+
- | TPM CLEAN         | Executes a complete TPM 2.0       |
- |                   | trace reset. Mandatory if banned  |
- |                   | from Valorant / Vanguard.         |
- +-------------------+-----------------------------------+
- | SPOOF MAC         | Standalone MAC address            |
- |                   | randomization for the active      |
- |                   | network adapter.                  |
- +-------------------+-----------------------------------+
+| Mode | When to use it |
+|---|---|
+| **Full Spoof** (Standard AMI) | Recommended for 95% of motherboards (ASUS, Gigabyte, MSI, ASRock). Flashes all SMBIOS tables. Board brand is detected automatically (AUTO). |
+| **TPM Clean** | Complete TPM 2.0 trace reset. Mandatory if banned from Valorant / Vanguard. |
+| **Spoof MAC** | Standalone MAC address randomization for the active network adapter. |
 
-SPOOFER EXECUTION CONSOLE LOG
-Estimated time: ~15s
+### Example console log (~15 seconds)
 
+```text
 [+] SMBIOS serials + UUID written [SUCCESS]
 [+] MAC ADDRESS SPOOFED & ADAPTER RESET [SUCCESS]
 [+] WINDOWS MACHINEGUID CLEANED [SUCCESS]
 [+] ARPCACHE & SYSTEM TRACES WIPED [SUCCESS]
 [+] DRIVERS UNLOADED [SUCCESS]
 [SUCCESS] FULL SPOOFING APPLIED SUCCESSFULLY!
-[!] Please restart your computer to apply all changes
-    completely.
+[!] Please restart your computer to apply all changes completely.
+```
 
-+------------------------------------------------------+
-| REBOOT YOUR PC IMMEDIATELY: You must restart your      |
-| computer right after the success message appears. Do   |
-| not open any game before rebooting.                    |
-+------------------------------------------------------+
+> **REBOOT IMMEDIATELY:** Restart your PC right after the success message. Do not open any game before rebooting.
 
+---
 
-========================================================
- EAC / BE (FORTNITE, APEX, RUST, ETC)
- Network Unflag
-========================================================
+## 7. Reset Your Network (Mandatory)
 
-Anti-cheats flag both your physical network card (MAC
-Address) and your external Public IP Address.
+Anti-cheats flag both your physical network card (MAC address) and your external public IP address.
 
- 1. MAC ADDRESS SPOOFING (AUTOMATIC)
-    Adapt automatically randomizes the MAC address of your
-    active physical network adapter during the spoof
-    process.
+1. **MAC address spoofing (automatic)** — Adapt randomizes the MAC address of your active network adapter during the spoof.
+2. **Public IP reset (crucial):**
+   - Unplug your router/modem from power for **60 seconds**, then plug it back in. This assigns you a new dynamic public IP.
+   - Verify the change at [whatismyipaddress.com](https://whatismyipaddress.com) before and after.
 
- 2. PUBLIC IP ADDRESS RESET (CRUCIAL)
-    2.1 RESTART YOUR HOME ROUTER
-        Unplug your internet router/modem from the power
-        outlet for 60 seconds, then plug it back in. This
-        assigns you a new dynamic public IP from your ISP.
-    2.2 VERIFY YOUR NEW IP
-        Visit whatismyipaddress.com before and after to
-        confirm your IP address has changed.
+---
 
+## 8. Make a New Account (Mandatory)
 
-========================================================
- EAC / BE (FORTNITE, APEX, RUST, ETC)
- Make a New Account
-========================================================
+This is where 90% of beginners fail: logging back into an old account.
 
-This is where 90% of beginners make a fatal mistake:
-Logging back into an old account.
+> **CRITICAL RULE:** Do **NOT** log into any account that has been previously banned. The anti-cheat will link your new clean hardware to the banned profile and re-ban you instantly.
 
-+------------------------------------------------------+
-| CRITICAL RULE: DO NOT LOG INTO ANY ACCOUNT THAT HAS    |
-| BEEN PREVIOUSLY BANNED. If you do, the anti-cheat will |
-| link your new clean hardware to the banned profile and |
-| re-ban you instantly!                                  |
-+------------------------------------------------------+
+- Create a brand new email address (ProtonMail, Gmail, Outlook).
+- Register a brand new game account (Epic Games, Steam, Riot, Battle.net).
+- Do **NOT** link old phone numbers or payment cards used on banned accounts.
+- Do **NOT** add the same friends list immediately.
 
-RULES FOR YOUR NEW ACCOUNT:
-- Create a brand new email address (ProtonMail, Gmail,
-  Outlook).
-- Register a brand new game account (Epic Games, Steam,
-  Riot, Battle.net).
-- Do NOT link old phone numbers or payment cards that were
-  used on banned accounts.
-- Do NOT add the same friends list immediately.
+---
 
+## 9. VPN
 
-========================================================
- EAC / BE (FORTNITE, APEX, RUST, ETC)
- Usage of VPN
-========================================================
+If your ISP provides a **static IP** (one that never changes when you restart your router), a gaming VPN is strongly recommended.
 
-If your Internet Service Provider (ISP) provides a Static
-IP Address (an IP that never changes even when you restart
-your router), using a gaming VPN is strongly recommended.
+Recommended VPNs:
 
-RECOMMENDED VPNS:
-- Mullvad VPN (best privacy, no logs, port-forwarding).
-- NordVPN (fast servers, low ping).
-- ExitLag (route optimization, safe for gaming).
+| VPN | Why |
+|---|---|
+| Mullvad | Best privacy, no logs, port-forwarding |
+| NordVPN | Fast servers, low ping |
+| ExitLag | Route optimization, safe for gaming |
 
-+------------------------------------------------------+
-| DYNAMIC IP USERS: If your public IP changes when you   |
-| reboot your router, a VPN is optional but still        |
-| provides an extra layer of safety.                     |
-+------------------------------------------------------+
+> **Dynamic IP users:** if your public IP changes when you reboot your router, a VPN is optional but still gives an extra layer of safety.
 
+---
 
-========================================================
- EAC / BE (FORTNITE, APEX, RUST, ETC)
- Extra Safety Step
-========================================================
+## 10. Clear Game Cache (Mandatory)
 
-Before launching your game client, you can clear stale
-game client logs and caches that might still contain old
-account identifiers.
+Before launching your game client, clear stale logs and caches that may still contain old account identifiers.
 
-CLEAR GAME CACHE:
-Press Win + R, type %localappdata% and delete the trace
-folders of your banned game:
-- Fortnite: Delete FortniteGame\Saved\Config and
-  EpicGamesLauncher\Saved.
-- Valorant: Delete Riot Games\Riot Client\Data.
+Press **Win + R**, type `%localappdata%` and delete the trace folders of your banned game:
 
+- **Fortnite:** delete `FortniteGame\Saved\Config` and `EpicGamesLauncher\Saved`.
+- **Valorant:** delete `Riot Games\Riot Client\Data`.
 
-========================================================
- EAC / BE (FORTNITE, APEX, RUST, ETC)
- Finish
-========================================================
+---
 
-Open Command Prompt (cmd) to verify your new hardware
-serial numbers:
+## 11. Verify Your New Serials (Mandatory)
 
- 1. Check Motherboard Serial Number:
-       wmic baseboard get serialnumber
+Open Command Prompt (`cmd`) and check your new hardware serial numbers:
 
- 2. Check System UUID:
-       wmic csproduct get uuid
-
- 3. Check Network MAC Address:
-       getmac
-
- 4. Check Disk Drive Serials:
-       wmic diskdrive get serialnumber
+| Check | Command |
+|---|---|
+| Motherboard serial | `wmic baseboard get serialnumber` |
+| System UUID | `wmic csproduct get uuid` |
+| Network MAC | `getmac` |
+| Disk serials | `wmic diskdrive get serialnumber` |
 
 If all values are new, launch your game on the new account.
 
+---
 
-========================================================
- EAC / BE (FORTNITE, APEX, RUST, ETC)
- Fortnite Tournaments
-========================================================
+## 12. Fortnite Tournaments
 
-Special guidelines if you intend to participate in
-competitive Fortnite tournaments (Cash Cups, FNCS, Ranked
-Cups):
+Guidelines for competitive Fortnite tournaments (Cash Cups, FNCS, Ranked Cups):
 
-- Enable 2FA on your brand new clean account using a fresh
-  Authenticator App.
-- Level up your account through regular Ranked matches
-  before registering for high-stakes tournaments.
-- Never use public or flagged cheat loaders on the same
-  Windows session.
-
-========================================================
- END OF GUIDE - ADAPT
-========================================================
+- Enable **2FA** on your new clean account using a fresh authenticator app.
+- Level up the account through regular Ranked matches before registering for high-stakes tournaments.
+- Never use public or flagged cheat loaders on the same Windows session.
